@@ -79,3 +79,4 @@ jobs:
           commit: ${{ github.head_ref || github.ref_name }} 
           artifacts: "**/*.rbxm"
           prerelease: ${{ contains(needs.build.outputs.version, '-') }}
+          generateReleaseNotes: true
