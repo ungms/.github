@@ -8,4 +8,7 @@ on:
 jobs:
   workflow:
     uses: ungms/.github/.github/workflows/roblox.yml@main
+    
     secrets: inherit
+    permissions:
+        contents: write
