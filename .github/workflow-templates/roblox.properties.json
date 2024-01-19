@@ -1,0 +1,11 @@
+{
+    "name": "Roblox Package",
+    "description": "Octo Organization CI starter workflow.",
+    "iconName": "octicon package-dependents",
+    "categories": [
+        "Continuous integration", "Deployment", "Automation", "Lua"
+    ],
+    "filePatterns": [
+        "^wally.toml$"
+    ]
+}
