@@ -36,7 +36,7 @@ jobs:
         id: set_manifest
         run: echo "manifest=$(wally manifest-to-json)" >> $GITHUB_OUTPUT
   
-  deploy:
+  publish-wally:
     if: github.ref == 'refs/heads/main'
     
     needs: build
@@ -61,8 +61,8 @@ jobs:
       - name: Push update to wally
         run: wally publish
   
-  release:
-    needs: [build, deploy]
+  publish-github:
+    needs: [build, publish-wally]
     runs-on: ubuntu-latest
     
     permissions:
