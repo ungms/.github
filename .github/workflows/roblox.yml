@@ -4,7 +4,7 @@ on:
   workflow_call:
     secrets:
       WALLY_AUTH:
-        description: "The token to use for Wally authentication."
+        description: "The token to use for Wally authentication, in TOML format."
         required: true
 
 jobs:
