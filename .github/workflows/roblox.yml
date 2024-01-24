@@ -2,7 +2,22 @@ name: "Roblox Publishing"
 
 on:
   workflow_call:
+    inputs:
+      ROBLOX_ASSETID:
+        required: false
+        type: number
+      ROBLOX_FILE:
+        required: false
+        type: string
+        default: "/filepath/model.fbx"
+      ROBLOX_TYPE:
+        required: false
+        type: string
+        default: "model/fbx"
     secrets:
+      ROBLOX_AUTH:
+        description: "The token to use for Roblox Open Cloud API."
+        required: false
       WALLY_AUTH:
         description: "The token to use for Wally authentication, in TOML format."
         required: true
@@ -60,6 +75,24 @@ jobs:
       
       - name: Push update to wally
         run: wally publish
+        
+  publish-roblox:
+    if: "${{ inputs.ROBLOX_ASSETID != '' }}"
+    
+    needs: [build, publish-wally]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download
+        uses: actions/download-artifact@v4
+        
+      - run: |
+          curl --location --request PATCH 'https://apis.roblox.com/assets/v1/assets/${{ inputs.ROBLOX_ASSETID }}' \
+          --header 'x-api-key: ${{ secrets.ROBLOX_AUTH }}' \
+          --form 'request="{
+            \"assetId\": ${{ inputs.ROBLOX_ASSETID }},
+          }"' \
+          --form 'fileContent=@"${{ inputs.ROBLOX_FILE }}";type=${{ inputs.ROBLOX_FILE }}'
   
   publish-github:
     needs: [build, publish-wally]
