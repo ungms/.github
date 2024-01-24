@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "wally.toml"
+  workflow_dispatch:
 
 jobs:
   workflow:
