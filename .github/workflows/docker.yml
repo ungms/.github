@@ -15,6 +15,9 @@ on:
       URL:
         required: false
         type: string
+      DOCKER_TARGET:
+        required: false
+        type: string
     secrets:
       PORTAINER_WEBHOOK:
         description: "The webhook to call when pushing to production."
@@ -64,6 +67,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          target: ${{ inputs.DOCKER_TARGET }}
           push: ${{ github.ref == 'refs/heads/main' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
