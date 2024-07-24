@@ -33,7 +33,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  VERSION: ${{ github.ref_type == 'tag' && '${{ needs.build.outputs.version }}' || '${{ github.sha }}' }}
 
 jobs:
   build:
@@ -82,7 +81,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            VERSION=${{ env.VERSION }}
+            VERSION=${{ github.ref_type == 'tag' && steps.meta.outputs.version || github.sha }}
           secrets: |
             SHA=${{ github.sha }}
             SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}
