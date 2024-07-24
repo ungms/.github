@@ -36,6 +36,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
 
     steps:
       - name: Checkout repository
@@ -85,7 +87,7 @@ jobs:
             type=inline
             
   request-update:
-    if: ${{ github.ref == 'refs/heads/main' && needs.build.result && inputs.PORTAINER }}
+    if: ${{ (github.ref == 'refs/heads/main' || github.ref_type == 'tag') && needs.build.result && inputs.PORTAINER }}
     
     needs: build
     runs-on: ubuntu-latest
@@ -98,4 +100,6 @@ jobs:
     
     steps:
       - name: Call Webhook
-        run: curl -X POST "${{ secrets.PORTAINER_WEBHOOK }}"
+        run: curl -X POST "${{ secrets.PORTAINER_WEBHOOK }}?API_VERSION=$API_VERSION"
+        env:
+          API_VERSION: ${{ needs.build.outputs.version }}
