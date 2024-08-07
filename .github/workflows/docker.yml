@@ -106,4 +106,6 @@ jobs:
     
     steps:
       - name: Call Webhook
-        run: curl -X POST "${{ secrets.PORTAINER_WEBHOOK }}?${{ inputs.DEPLOY_TAG }}=${{ needs.build.outputs.version }}"
+        uses: newarifrh/portainer-service-webhook@v1
+        with:
+          webhook_url: ${{ secrets.PORTAINER_WEBHOOK }}?${{ inputs.DEPLOY_TAG }}=${{ needs.build.outputs.version }}"
