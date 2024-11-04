@@ -68,7 +68,9 @@ jobs:
       
       - name: Log in to wally
         env:
-          WALLY_AUTH: '"https://wally.unnamed.games/" = "${{ secrets.GITHUB_TOKEN }}"'
+          WALLY_AUTH: |
+            [tokens]
+            "https://wally.unnamed.games/" = "${{ secrets.WALLY_AUTH || secrets.GITHUB_TOKEN }}"
         run: |
           mkdir ~/.wally
           printenv WALLY_AUTH > ~/.wally/auth.toml
