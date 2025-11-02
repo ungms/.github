@@ -42,7 +42,7 @@ jobs:
         run: rojo build -o Build.rbxm
       
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           path: "*.rbxm"
           if-no-files-found: error
