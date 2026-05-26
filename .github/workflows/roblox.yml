@@ -86,7 +86,7 @@ jobs:
     
     steps:
       - name: Download
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         
       - run: |
           curl --location --request PATCH 'https://apis.roblox.com/assets/v1/assets/${{ inputs.ROBLOX_ASSETID }}' \
@@ -105,7 +105,7 @@ jobs:
     
     steps:
       - name: Download
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         
       - uses: ncipollo/release-action@v1
         with:
