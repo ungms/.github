@@ -89,7 +89,7 @@ jobs:
         uses: actions/download-artifact@v7
         
       - run: |
-          curl --request PATCH \
+          curl --fail --request PATCH \
           --url https://apis.roblox.com/assets/v1/assets/${{ inputs.ROBLOX_ASSETID }} \
           --header 'x-api-key: ${{ secrets.ROBLOX_AUTH }}' \
           --header 'content-type: multipart/form-data' \
