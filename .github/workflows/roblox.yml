@@ -91,7 +91,7 @@ jobs:
       - run: |
           curl --request PATCH \
           --url https://apis.roblox.com/assets/v1/assets/${{ inputs.ROBLOX_ASSETID }} \
-          --header 'x-api-key: ${{ secrets.ROBLOX_TOKEN }}' \
+          --header 'x-api-key: ${{ secrets.ROBLOX_AUTH }}' \
           --header 'content-type: multipart/form-data' \
           --form 'fileContent=@${{ inputs.ROBLOX_FILE }};type=${{ inputs.ROBLOX_TYPE }}' \
           --form 'request={"assetId": "${{ inputs.ROBLOX_ASSETID }}"}'
