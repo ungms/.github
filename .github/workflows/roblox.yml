@@ -9,11 +9,11 @@ on:
       ROBLOX_FILE:
         required: false
         type: string
-        default: "/filepath/model.fbx"
+        default: "Build.rbxm"
       ROBLOX_TYPE:
         required: false
         type: string
-        default: "model/fbx"
+        default: "model/x-rbxm"
     secrets:
       ROBLOX_AUTH:
         description: "The token to use for Roblox Open Cloud API."
@@ -93,7 +93,7 @@ jobs:
           --url https://apis.roblox.com/assets/v1/assets/${{ inputs.ROBLOX_ASSETID }} \
           --header 'x-api-key: ${{ secrets.ROBLOX_TOKEN }}' \
           --header 'content-type: multipart/form-data' \
-          --form 'fileContent=@${{ inputs.ROBLOX_FILE }}' \
+          --form 'fileContent=@${{ inputs.ROBLOX_FILE }};type=${{ inputs.ROBLOX_TYPE }}' \
           --form 'request={"assetId": "${{ inputs.ROBLOX_ASSETID }}"}'
   
   publish-github:
